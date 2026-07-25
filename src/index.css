@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+/* ── Custom Fonts ────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("./assets/fonts/DM-Sans-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("./assets/fonts/RobotoMono-Regular.Dl_9wEMW.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Aspekta";
+  src: url("./assets/fonts/Aspekta-400.DnG7D574.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+@theme {
+  /* Fonts — use as: font-dm-sans | font-roboto-mono | font-aspekta */
+  --font-dm-sans:     "DM Sans", sans-serif;
+  --font-roboto-mono: "Roboto Mono", monospace;
+  --font-aspekta:     "Aspekta", sans-serif;
+
+  /* ── Brand Palette ────────────────────────────────────────────────────────
+     forest  → #222e30   dark charcoal-teal   (bg-forest  / text-forest)
+     lime    → #cef79e   bright lime green    (bg-lime    / text-lime)
+     mist    → #e7e8e1   soft warm gray       (bg-mist    / text-mist)
+     snow    → #f7f7f5   near-white           (bg-snow    / text-snow)
+     white   → #ffffff   pure white           (bg-white   / text-white)
+     gray    -> #eeeeee gray
+  ──────────────────────────────────────────────────────────────────────── */
+  --color-forest: #222e30;
+  --color-lime:   #cef79e;
+  --color-mist:   #e7e8e1;
+  --color-snow:   #f7f7f5;
+  --color-white:  #ffffff;
+  --color-gray:   #eeeeee;
+}
