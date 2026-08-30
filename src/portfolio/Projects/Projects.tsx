@@ -55,7 +55,7 @@ const Projects = () => {
                                 date="2026"
                                 description="Built with React, TypeScript, and Tailwind CSS — featuring GSAP scroll animations, 3D flip cards, a scroll-velocity marquee, and a video hero."
                                 links={[
-                                    { label: "Live Demo", href: "https://sanjaikannang-delta.vercel.app/" },
+                                    { label: "Live Demo", href: "https://sanjaikannan-g-delta.vercel.app/" },
                                     { label: "GitHub", href: "https://github.com/sanjaikannang/Portfolio_New" },
                                 ]}
                                 key={"portfolio"}

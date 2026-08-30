@@ -4,14 +4,18 @@ const HeroSection = () => {
     return (
         <>
             <div className="p-2 sm:p-3">
-                <div className="relative w-full min-h-140 h-[calc(100svh-1rem)] sm:h-[calc(100svh-1.5rem)] overflow-hidden rounded-2xl sm:rounded-3xl">
-                    {/* Background video */}
+                <div className="relative w-full min-h-140 h-[calc(100svh-1rem)] sm:h-[calc(100svh-1.5rem)] overflow-hidden rounded-2xl sm:rounded-3xl bg-mist">
+                    {/* Background video — preload="auto" + App's loader already
+                        preloads this same URL, so it's typically decoded and
+                        ready before this element even mounts. bg-mist above
+                        covers the gap on the rare slow-connection case where it isn't. */}
                     <video
                         src="/25887-353764070.mp4"
                         autoPlay
                         loop
                         muted
                         playsInline
+                        preload="auto"
                         className="absolute inset-0 w-full h-full object-cover"
                     />
 
