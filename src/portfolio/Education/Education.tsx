@@ -71,7 +71,19 @@ const Education = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: `+=${(N - 1) * window.innerHeight}`,
+          // A function (not a pre-computed string) so ScrollTrigger.refresh()
+          // re-reads window.innerHeight fresh each time instead of replaying a
+          // value baked in at mount — that staleness was the actual cause of
+          // the dead-scroll gap after Education (mismatched against layout
+          // shifts from web-font swaps / the loading screen's overflow lock).
+          end: () => `+=${(N - 1) * window.innerHeight}`,
+          // Let GSAP own the pin + its spacer entirely, instead of us hand
+          // -sizing an outer wrapper to `N*100vh` via CSS and hoping it
+          // always agrees with this trigger's independently-computed
+          // distance. One calculation, recomputed together on every refresh.
+          pin: true,
+          pinSpacing: true,
+          invalidateOnRefresh: true,
           scrub: 1,
           onUpdate(self) {
             const idx = Math.min(Math.floor(self.progress * N), N - 1);
@@ -157,14 +169,15 @@ const Education = () => {
   }
 
   // ── Desktop: pinned, scroll-scrubbed year ticker + card stack ──────────────
+  // GSAP's `pin: true` (set above) pins this section in place and inserts its
+  // own spacer for the scroll distance — no manual height/sticky needed here.
   return (
     <>
       <section
         id="education"
         ref={sectionRef}
-        style={{ height: `${N * 100}vh` }}
+        className="w-full h-screen bg-white overflow-hidden"
       >
-        <div className="sticky top-0 w-full h-screen bg-white overflow-hidden">
           <div className="max-w-7xl mx-auto h-full flex gap-10">
             {/* ── Left col: top-aligned ─────────────────────────────────────── */}
             <div className="w-2/6 shrink-0 flex flex-col gap-4 mt-32">
@@ -240,7 +253,6 @@ const Education = () => {
               </div>
             </div>
           </div>
-        </div>
       </section>
     </>
   );
