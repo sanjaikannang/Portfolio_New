@@ -106,47 +106,53 @@ const Education = () => {
   // ── Mobile / tablet: plain stacked timeline, no scroll-jacking ─────────────
   if (!isDesktop) {
     return (
-      <section id="education" className="w-full bg-white px-4 sm:px-6 py-16 sm:py-20">
-        <div className="max-w-2xl mx-auto flex flex-col gap-6">
-          <h2 className="text-4xl sm:text-5xl font-aspekta text-forest">
-            Education
-          </h2>
+      <>
+        <section id="education" className="w-full bg-white px-4 sm:px-6 py-16 sm:py-20">
+          <div className="max-w-2xl mx-auto flex flex-col gap-4">
+            <span className="inline-flex items-center gap-2 bg-mist px-3 py-1.5 rounded-lg font-roboto-mono text-[10px] tracking-widest uppercase text-forest w-fit">
+              <span className="w-2 h-2 rounded-[3px] bg-lime shrink-0 animate-blink" />
+              What I Studied
+            </span>
+            <h2 className="text-4xl sm:text-5xl font-aspekta text-forest mb-2">
+              Education
+            </h2>
 
-          {EDUCATION.map((edu) => (
-            <div
-              key={edu.number}
-              className="bg-lime rounded-3xl p-6 sm:p-8 flex flex-col gap-4 overflow-hidden"
-            >
-              <div className="flex items-start justify-between">
-                <span
-                  className="font-aspekta font-bold text-forest/10 select-none leading-none"
-                  style={{ fontSize: "clamp(3.5rem, 14vw, 5rem)" }}
-                >
-                  {edu.number}
-                </span>
-                <span className="font-roboto-mono text-[10px] tracking-widest uppercase text-forest/40 mt-2 text-right">
-                  {edu.period}
-                </span>
-              </div>
+            {EDUCATION.map((edu) => (
+              <div
+                key={edu.number}
+                className="bg-lime rounded-3xl p-6 sm:p-8 flex flex-col gap-4 overflow-hidden"
+              >
+                <div className="flex items-start justify-between">
+                  <span
+                    className="font-aspekta font-bold text-forest/10 select-none leading-none"
+                    style={{ fontSize: "clamp(3.5rem, 14vw, 5rem)" }}
+                  >
+                    {edu.number}
+                  </span>
+                  <span className="font-roboto-mono text-[10px] tracking-widest uppercase text-forest/40 mt-2 text-right">
+                    {edu.period}
+                  </span>
+                </div>
 
-              <div className="flex flex-col gap-2">
-                <span className="font-aspekta font-bold text-forest text-2xl sm:text-3xl">
-                  {edu.year}
-                </span>
-                <h3 className="font-aspekta font-bold text-forest text-xl sm:text-2xl leading-tight">
-                  {edu.grade}
-                </h3>
-                <p className="font-roboto-mono text-[10px] tracking-widest uppercase text-forest/50">
-                  {edu.school}
-                </p>
-                <p className="font-dm-sans text-sm text-forest/60 leading-relaxed mt-1">
-                  {edu.description}
-                </p>
+                <div className="flex flex-col gap-2">
+                  <span className="font-aspekta font-bold text-forest text-2xl sm:text-3xl">
+                    {edu.year}
+                  </span>
+                  <h3 className="font-aspekta font-bold text-forest text-xl sm:text-2xl leading-tight">
+                    {edu.grade}
+                  </h3>
+                  <p className="font-roboto-mono text-[10px] tracking-widest uppercase text-forest/50">
+                    {edu.school}
+                  </p>
+                  <p className="font-dm-sans text-sm text-forest/60 leading-relaxed mt-1">
+                    {edu.description}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      </>
     );
   }
 
@@ -163,7 +169,7 @@ const Education = () => {
             {/* ── Left col: top-aligned ─────────────────────────────────────── */}
             <div className="w-2/6 shrink-0 flex flex-col gap-4 mt-32">
               <span className="inline-flex items-center gap-2 bg-mist px-3 py-1.5 rounded-lg font-roboto-mono text-[10px] tracking-widest uppercase text-forest w-fit">
-                <span className="w-2 h-2 rounded-[3px] bg-lime shrink-0" />
+                <span className="w-2 h-2 rounded-[3px] bg-lime shrink-0 animate-blink" />
                 What I Studied
               </span>
               {/* Section title */}

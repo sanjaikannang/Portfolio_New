@@ -2,6 +2,13 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  /* The App entrance animation scales the page up from 1.08x, which visually
+     overflows the viewport width while it settles — clip that, don't scroll it. */
+  overflow-x: hidden;
 }
 
 /* ── Custom Fonts ────────────────────────────────────────────────────────── */
@@ -58,10 +65,18 @@ html {
 
   /* Looping glass-shine sweep — use as: animate-shine */
   --animate-shine: shine 3.2s ease-in-out infinite;
+
+  /* Blinking chip dot — use as: animate-blink */
+  --animate-blink: blink 1.6s ease-in-out infinite;
 }
 
 @keyframes shine {
   0%   { transform: translateX(-150%) skewX(-20deg); }
   55%  { transform: translateX(250%) skewX(-20deg); }
   100% { transform: translateX(250%) skewX(-20deg); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.25; }
 }

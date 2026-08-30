@@ -4,27 +4,77 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const EXPERIENCES = [
+interface Role {
+    title: string;
+    period: string;
+    duration: string;
+    bullets?: string[];
+}
+
+interface CompanyEntry {
+    number: string;
+    company: string;
+    type: string;
+    location?: string;
+    duration: string;
+    roles: Role[];
+}
+
+// Most recent company first
+const EXPERIENCES: CompanyEntry[] = [
     {
         number: "01",
-        period: "Jan 2024 – Present",
-        role: "AI Agent Developer",
-        company: "Grids and Guides Technologies",
-        type: "Full Time",
-        description:
-            "Building intelligent AI agent systems and full-stack applications. Architecting multi-agent workflows using LangChain, OpenAI, and Claude API, and leading products from ideation to production deployment.",
-        tags: ["LangChain", "React", "FastAPI", "Claude API"],
+        company: "Grids and Guides",
+        type: "Full-time",
+        location: "Chennai, Tamil Nadu, India · On-site",
+        duration: "Aug 2024 – Present · 2 yrs 2 mo",
+        roles: [
+            {
+                title: "AI Agent Developer",
+                period: "Sep 2025 – Present",
+                duration: "1 yr",
+                bullets: [
+                    "Designing and developing multi-agent systems using LangChain and LangGraph, enabling complex task orchestration and intelligent decision-making across interconnected AI agents",
+                    "Building conversational AI and task automation agents powered by AWS Bedrock Agent Core, integrating large language models to deliver production-ready AI solutions",
+                    "Implementing RAG pipelines with vector databases to enhance agent memory, context retrieval, and response accuracy across diverse use cases",
+                    "Architecting serverless applications with AWS Lambda and managing cloud infrastructure including S3, Cognito, and Secrets Manager to support scalable AI deployments",
+                ],
+            },
+            {
+                title: "Software Developer",
+                period: "Nov 2024 – Aug 2025",
+                duration: "10 mos",
+                bullets: [
+                    "Built and deployed RESTful APIs using Node.js and NestJS, integrating third-party services to support scalable, production-ready backend systems",
+                    "Managed cloud infrastructure on AWS including Lambda, S3, Cognito, and Secrets Manager, while optimizing CI/CD deployment pipelines for reliability and speed",
+                    "Contributed to early-stage AI agent development using LangChain, LangGraph, and AWS Bedrock Agent Core, laying the groundwork for intelligent automation solutions",
+                ],
+            },
+            {
+                title: "Junior Software Developer",
+                period: "Aug 2024 – Oct 2024",
+                duration: "3 mos",
+                bullets: [
+                    "Developed full-stack web applications using React, Vite, TypeScript, and Tailwind CSS, delivering responsive and component-based user interfaces",
+                    "Built secure backend services with Node.js, Express.js, and NestJS, implementing JWT authentication and AWS Cognito integration for robust authorization flows",
+                    "Designed and optimized MongoDB and MySQL database schemas, improving query performance and overall data integrity across production systems",
+                ],
+            },
+        ],
     },
     {
         number: "02",
-        period: "Jul 2023 – Dec 2023",
-        role: "Software Developer",
-        company: "Tech Startup",
-        type: "Internship",
-        description:
-            "Developed RESTful APIs and microservices with Node.js and Express. Built responsive frontends in React and TypeScript, and collaborated across teams in an agile delivery environment.",
-        tags: ["Node.js", "React", "TypeScript", "PostgreSQL"],
-    }
+        company: "Trippr.",
+        type: "Full-time",
+        duration: "May 2024 – Jul 2024 · 3 mos",
+        roles: [
+            {
+                title: "Front End Developer – Level 1",
+                period: "May 2024 – Jul 2024",
+                duration: "3 mos",
+            },
+        ],
+    },
 ];
 
 const Experience = () => {
@@ -69,7 +119,7 @@ const Experience = () => {
                     {/* ── Header ───────────────────────────────────────────────────── */}
                     <div className="flex flex-col gap-4">
                         <span className="inline-flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-lg font-roboto-mono text-[10px] tracking-widest uppercase text-lime w-fit">
-                            <span className="w-2 h-2 rounded-[3px] bg-lime shrink-0" />
+                            <span className="w-2 h-2 rounded-[3px] bg-lime shrink-0 animate-blink" />
                             Where I've Worked
                         </span>
                         <h2 className="text-snow font-aspekta font-bold leading-tight text-4xl sm:text-5xl lg:text-6xl">
@@ -83,9 +133,9 @@ const Experience = () => {
                         <div className="absolute top-2 bottom-2 left-4 md:left-1/2 w-px bg-white/15 md:-translate-x-1/2" />
 
                         <div className="flex flex-col gap-10 sm:gap-12 md:gap-4">
-                            {EXPERIENCES.map((exp, i) => (
+                            {EXPERIENCES.map((entry, i) => (
                                 <div
-                                    key={exp.number}
+                                    key={entry.number}
                                     ref={(el) => {
                                         itemRefs.current[i] = el;
                                     }}
@@ -97,48 +147,61 @@ const Experience = () => {
                                             }`}
                                     />
 
-                                    {/* Card — alternates side on desktop, always right of the line on mobile */}
-                                    <div className={i % 2 === 0 ? "md:col-start-1" : "md:col-start-2"}>
-                                        <div className="bg-snow rounded-2xl p-6 sm:p-8 flex flex-col gap-3">
-                                            {/* Ghost number + type + period */}
+                                    {/* Card — 1st entry on the right, 2nd on the left (desktop); stacked on mobile */}
+                                    <div className={i % 2 === 0 ? "md:col-start-2" : "md:col-start-1"}>
+                                        <div className="bg-snow rounded-2xl p-6 sm:p-8 flex flex-col gap-5">
+                                            {/* Company header */}
                                             <div className="flex items-start justify-between gap-3">
+                                                <div className="flex flex-col gap-1">
+                                                    <h3 className="font-aspekta font-bold text-forest leading-tight text-xl sm:text-2xl">
+                                                        {entry.company}
+                                                    </h3>
+                                                    <p className="font-roboto-mono text-[10px] tracking-widest uppercase text-forest/50">
+                                                        {entry.type}
+                                                        {entry.location ? ` · ${entry.location}` : ""}
+                                                    </p>
+                                                </div>
                                                 <span
-                                                    className="font-aspekta font-bold text-forest/10 select-none leading-none"
+                                                    className="font-aspekta font-bold text-forest/10 select-none leading-none shrink-0"
                                                     style={{ fontSize: "clamp(2.5rem, 5vw, 3.5rem)" }}
                                                 >
-                                                    {exp.number}
+                                                    {entry.number}
                                                 </span>
-                                                <div className="flex flex-col items-end gap-2 mt-1">
-                                                    <span className="inline-flex items-center gap-1.5 bg-forest/8 px-3 py-1 rounded-lg font-roboto-mono text-[9px] tracking-widest uppercase text-forest/60 whitespace-nowrap">
-                                                        {exp.type}
-                                                    </span>
-                                                    <span className="font-roboto-mono text-[9px] tracking-widest uppercase text-forest/40 whitespace-nowrap">
-                                                        {exp.period}
-                                                    </span>
-                                                </div>
                                             </div>
 
-                                            {/* Role, company, description, tags */}
-                                            <h3 className="font-aspekta font-bold text-forest leading-tight text-xl sm:text-2xl">
-                                                {exp.role}
-                                            </h3>
+                                            <span className="font-roboto-mono text-[9px] tracking-widest uppercase text-forest/40 -mt-2">
+                                                {entry.duration}
+                                            </span>
 
-                                            <p className="font-roboto-mono text-[10px] tracking-widest uppercase text-forest/50">
-                                                {exp.company}
-                                            </p>
-
-                                            <p className="font-dm-sans text-sm text-forest/60 leading-relaxed">
-                                                {exp.description}
-                                            </p>
-
-                                            <div className="flex flex-wrap gap-2 mt-1">
-                                                {exp.tags.map((tag) => (
-                                                    <span
-                                                        key={tag}
-                                                        className="inline-flex items-center gap-1.5 bg-forest/6 border border-forest/10 px-3 py-1 rounded-lg font-roboto-mono text-[9px] tracking-widest uppercase text-forest/60"
+                                            {/* Roles within the company */}
+                                            <div className="flex flex-col gap-5">
+                                                {entry.roles.map((role, ri) => (
+                                                    <div
+                                                        key={role.title}
+                                                        className={ri > 0 ? "pt-5 border-t border-forest/10" : ""}
                                                     >
-                                                        {tag}
-                                                    </span>
+                                                        <div className="flex items-baseline justify-between gap-3 flex-wrap">
+                                                            <h4 className="font-aspekta font-bold text-forest text-base sm:text-lg">
+                                                                {role.title}
+                                                            </h4>
+                                                            <span className="font-roboto-mono text-[9px] tracking-widest uppercase text-forest/40 whitespace-nowrap">
+                                                                {role.period} · {role.duration}
+                                                            </span>
+                                                        </div>
+
+                                                        {role.bullets && (
+                                                            <ul className="mt-2.5 flex flex-col gap-1.5">
+                                                                {role.bullets.map((bullet, bi) => (
+                                                                    <li
+                                                                        key={bi}
+                                                                        className="relative pl-4 font-dm-sans text-sm text-forest/60 leading-relaxed before:content-['•'] before:absolute before:left-0 before:text-lime"
+                                                                    >
+                                                                        {bullet}
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        )}
+                                                    </div>
                                                 ))}
                                             </div>
                                         </div>
