@@ -1,5 +1,5 @@
 import { Code2, Network, FileText } from "lucide-react";
-import ScrollVelocity from "../../components/ui/ScrollVelocity";
+import Button from "../../components/ui/Button";
 
 const GITHUB_URL = "https://github.com/sanjai-kannan-g";
 const LINKEDIN_URL = "https://linkedin.com/in/sanjai-kannan-g";
@@ -8,17 +8,7 @@ const RESUME_URL = "#";
 const About = () => {
  return (
   <>
-   <div className="relative w-full h-[calc(100vh-2rem)] overflow-hidden flex flex-col">
-    {/* ── Scroll Velocity marquee ───────────────────────────────────────── */}
-    <div className="pt-10 pb-4">
-     <ScrollVelocity
-      text="A Bit About Me"
-      velocity={-1}
-      className="font-aspekta text-9xl font-bold text-forest uppercase tracking-tight select-none"
-      numCopies={10}
-     />
-    </div>
-
+   <div id="about" className="relative w-full h-[calc(100vh-2rem)] overflow-hidden flex flex-col">
     {/* ── About content — max-w-7xl, 2:4 grid ─────────────────────────── */}
     <div className="flex-1 flex items-center justify-center px-6 overflow-hidden">
      <div className="max-w-7xl w-full grid grid-cols-6 gap-10 items-start">
@@ -48,31 +38,28 @@ const About = () => {
         Always curious, always shipping.
        </p>
 
-       <div className="flex flex-wrap gap-3 mt-1">
-        <a
+       <div className="flex flex-wrap gap-4 mt-1">
+        <Button
+         label="GitHub Profile"
          href={GITHUB_URL}
          target="_blank"
          rel="noopener noreferrer"
-         className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-forest text-snow hover:bg-forest/85 border border-forest text-sm font-dm-sans transition-all duration-200"
-        >
-         <Code2 size={16} /> GitHub Profile
-        </a>
-        <a
+         icon={Code2}
+        />
+        <Button
+         label="LinkedIn"
          href={LINKEDIN_URL}
          target="_blank"
          rel="noopener noreferrer"
-         className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-mist hover:bg-mist/70 border border-forest/10 text-forest text-sm font-dm-sans transition-all duration-200"
-        >
-         <Network size={16} /> LinkedIn
-        </a>
-        <a
+         icon={Network}
+        />
+        <Button
+         label="Resume"
          href={RESUME_URL}
          target="_blank"
          rel="noopener noreferrer"
-         className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-lime hover:bg-lime/80 text-forest text-sm font-dm-sans font-semibold transition-all duration-200"
-        >
-         <FileText size={16} /> Resume
-        </a>
+         icon={FileText}
+        />
        </div>
       </div>
      </div>

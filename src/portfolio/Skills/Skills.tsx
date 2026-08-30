@@ -403,13 +403,24 @@ const CATEGORIES: SkillCategory[] = [
 // ── Section ──────────────────────────────────────────────────────────────────
 
 const Skills = () => (
- <>
+ <section id="skills">
+  <div className="w-full px-6 pt-16 pb-10 sm:pt-20 sm:pb-12">
+   <div className="max-w-7xl mx-auto flex flex-col gap-4">
+    <span className="inline-flex items-center gap-2 bg-mist px-3 py-1.5 rounded-lg font-roboto-mono text-[10px] tracking-widest uppercase text-forest w-fit">
+     <span className="w-2 h-2 rounded-[3px] bg-lime shrink-0" />
+     What I Bring
+    </span>
+    <h2 className="text-forest font-aspekta font-bold leading-tight text-4xl sm:text-5xl lg:text-6xl">
+     Skills &amp; Stack
+    </h2>
+   </div>
+  </div>
   <div className="w-full auto-rows-[500px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
    {CATEGORIES.map((cat) => (
     <SkillCard key={cat.id} {...cat} />
    ))}
   </div>
- </>
+ </section>
 );
 
 export default Skills;

@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* ── Custom Fonts ────────────────────────────────────────────────────────── */
 
 @font-face {
@@ -29,6 +33,9 @@
 /* ─────────────────────────────────────────────────────────────────────────── */
 
 @theme {
+  /* Extra breakpoint below the default sm (40rem) — use as: xs:text-3xl */
+  --breakpoint-xs: 26rem;
+
   /* Fonts — use as: font-dm-sans | font-roboto-mono | font-aspekta */
   --font-dm-sans:     "DM Sans", sans-serif;
   --font-roboto-mono: "Roboto Mono", monospace;
