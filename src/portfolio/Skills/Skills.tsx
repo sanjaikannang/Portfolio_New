@@ -323,13 +323,11 @@ const CATEGORIES: SkillCategory[] = [
   backIconColor: "#cef79e",
   DecoIcon: StarburstSVG,
   skills: [
-   { Icon: Code2, label: "React" },
-   { Icon: Layers, label: "TypeScript" },
-   { Icon: Wind, label: "Tailwind" },
    { Icon: FileCode, label: "HTML/CSS" },
-   { Icon: Zap, label: "Framer" },
-   { Icon: Globe, label: "Vite" },
-   { Icon: Box, label: "Next.js" },
+   { Icon: Layers, label: "JavaScript" },
+   { Icon: Layers, label: "TypeScript" },
+   { Icon: Code2, label: "React Vite" },
+   { Icon: Wind, label: "Tailwind" },   
   ],
  },
  {
@@ -349,9 +347,9 @@ const CATEGORIES: SkillCategory[] = [
    { Icon: Terminal, label: "Python" },
    { Icon: Package, label: "FastAPI" },
    { Icon: Cpu, label: "Express" },
-   { Icon: Code2, label: "REST" },
-   { Icon: Network, label: "GraphQL" },
-   { Icon: Box, label: "Docker" },
+//    { Icon: , label: "NestJS" },
+//    { Icon: , label: "JWT" },
+//    { Icon: , label: "REST API" },
   ],
  },
  {
@@ -367,13 +365,10 @@ const CATEGORIES: SkillCategory[] = [
   backIconColor: "#e7e8e1",
   DecoIcon: RingsSVG,
   skills: [
-   { Icon: Database, label: "PostgreSQL" },
-   { Icon: HardDrive, label: "MongoDB" },
-   { Icon: Archive, label: "Redis" },
-   { Icon: Layers, label: "Supabase" },
-   { Icon: Package, label: "SQLite" },
+   { Icon: HardDrive, label: "MongoDB" },   
    { Icon: Server, label: "Prisma" },
-   { Icon: Box, label: "Pinecone" },
+//    { Icon: , label: "MySQL" },
+//    { Icon: , label: "Mongoose" }    
   ],
  },
  {
@@ -391,11 +386,10 @@ const CATEGORIES: SkillCategory[] = [
   skills: [
    { Icon: Brain, label: "LangChain" },
    { Icon: Bot, label: "OpenAI" },
-   { Icon: Sparkles, label: "Claude" },
-   { Icon: Network, label: "Vectors" },
-   { Icon: Cpu, label: "Fine-tune" },
    { Icon: Zap, label: "RAG" },
    { Icon: Layers, label: "Agents" },
+//    { Icon: , label: "" },
+//    { Icon: , label: "" }
   ],
  },
 ];

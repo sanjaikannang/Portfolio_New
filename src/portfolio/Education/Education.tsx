@@ -106,7 +106,7 @@ const Education = () => {
   // ── Mobile / tablet: plain stacked timeline, no scroll-jacking ─────────────
   if (!isDesktop) {
     return (
-      <section id="education" className="w-full bg-snow px-4 sm:px-6 py-16 sm:py-20">
+      <section id="education" className="w-full bg-white px-4 sm:px-6 py-16 sm:py-20">
         <div className="max-w-2xl mx-auto flex flex-col gap-6">
           <h2 className="text-4xl sm:text-5xl font-aspekta text-forest">
             Education
@@ -158,7 +158,7 @@ const Education = () => {
         ref={sectionRef}
         style={{ height: `${N * 100}vh` }}
       >
-        <div className="sticky top-0 w-full h-screen bg-snow overflow-hidden">
+        <div className="sticky top-0 w-full h-screen bg-white overflow-hidden">
           <div className="max-w-7xl mx-auto h-full flex gap-10">
             {/* ── Left col: top-aligned ─────────────────────────────────────── */}
             <div className="w-2/6 shrink-0 flex flex-col gap-4 mt-32">

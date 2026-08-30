@@ -1,204 +1,156 @@
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const EXPERIENCES = [
- {
-  number: "01",
-  year: "2024",
-  period: "Jan 2024 – Present",
-  role: "AI Agent Developer",
-  company: "Grids and Guides Technologies",
-  type: "Full Time",
-  description:
-   "Building intelligent AI agent systems and full-stack applications. Architecting multi-agent workflows using LangChain, OpenAI, and Claude API, and leading products from ideation to production deployment.",
-  tags: ["LangChain", "React", "FastAPI", "Claude API"],
- },
- {
-  number: "02",
-  year: "2023",
-  period: "Jul 2023 – Dec 2023",
-  role: "Software Developer",
-  company: "Tech Startup",
-  type: "Internship",
-  description:
-   "Developed RESTful APIs and microservices with Node.js and Express. Built responsive frontends in React and TypeScript, and collaborated across teams in an agile delivery environment.",
-  tags: ["Node.js", "React", "TypeScript", "PostgreSQL"],
- },
- {
-  number: "03",
-  year: "2022",
-  period: "Jan 2022 – Jun 2023",
-  role: "Frontend Developer",
-  company: "Digital Agency",
-  type: "Freelance",
-  description:
-   "Crafted pixel-perfect, responsive web interfaces for clients across industries. Integrated third-party APIs and optimised load performance, delivering 10+ projects with a focus on UX.",
-  tags: ["React", "Tailwind CSS", "JavaScript", "Figma"],
- },
+    {
+        number: "01",
+        period: "Jan 2024 – Present",
+        role: "AI Agent Developer",
+        company: "Grids and Guides Technologies",
+        type: "Full Time",
+        description:
+            "Building intelligent AI agent systems and full-stack applications. Architecting multi-agent workflows using LangChain, OpenAI, and Claude API, and leading products from ideation to production deployment.",
+        tags: ["LangChain", "React", "FastAPI", "Claude API"],
+    },
+    {
+        number: "02",
+        period: "Jul 2023 – Dec 2023",
+        role: "Software Developer",
+        company: "Tech Startup",
+        type: "Internship",
+        description:
+            "Developed RESTful APIs and microservices with Node.js and Express. Built responsive frontends in React and TypeScript, and collaborated across teams in an agile delivery environment.",
+        tags: ["Node.js", "React", "TypeScript", "PostgreSQL"],
+    }
 ];
 
-const N = EXPERIENCES.length;
-
 const Experience = () => {
- const sectionRef = useRef<HTMLDivElement>(null);
- const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
- const yearRef = useRef<HTMLSpanElement>(null);
- const periodRef = useRef<HTMLSpanElement>(null);
- const lastIdx = useRef(0);
+    const sectionRef = useRef<HTMLDivElement>(null);
+    const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
- useLayoutEffect(() => {
-  const ctx = gsap.context(() => {
-   // Cards after the first start fully off-screen at bottom-right.
-   // xPercent/yPercent are relative to each card's own dimensions,
-   // so 100% = exactly one card-width right and one card-height down.
-   gsap.set(cardRefs.current.slice(1), { xPercent: 100, yPercent: 100 });
+    // Each card fades/slides in once as it scrolls into view — no pinning,
+    // so the effect holds up the same way at every viewport size.
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            itemRefs.current.forEach((el) => {
+                if (!el) return;
+                gsap.fromTo(
+                    el,
+                    { opacity: 0, y: 48 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.7,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: el,
+                            start: "top 88%",
+                            toggleActions: "play none none none",
+                        },
+                    }
+                );
+            });
+        }, sectionRef);
 
-   const tl = gsap.timeline({
-    scrollTrigger: {
-     trigger: sectionRef.current,
-     start: "top top",
-     end: `+=${(N - 1) * window.innerHeight}`,
-     scrub: 1,
-     onUpdate(self) {
-      const idx = Math.min(Math.floor(self.progress * N), N - 1);
-      if (idx === lastIdx.current) return;
-      lastIdx.current = idx;
+        return () => ctx.revert();
+    }, []);
 
-      if (yearRef.current) yearRef.current.textContent = EXPERIENCES[idx].year;
-      if (periodRef.current)
-       periodRef.current.textContent = EXPERIENCES[idx].period;
-     },
-    },
-   });
-
-   // Each segment: active card travels to top-left corner,
-   // next card travels in from the bottom-right corner simultaneously.
-   // overflow-hidden on the STICKY CONTAINER clips at the viewport edge,
-   // so cards visually travel across both left and right columns.
-   for (let i = 0; i < N - 1; i++) {
-    tl.to(
-     cardRefs.current[i],
-     { xPercent: -100, yPercent: -100, ease: "power2.inOut", duration: 1 },
-     i
-    );
-    tl.to(
-     cardRefs.current[i + 1],
-     { xPercent: 0, yPercent: 0, ease: "power2.inOut", duration: 1 },
-     i
-    );
-   }
-  }, sectionRef);
-
-  return () => ctx.revert();
- }, []);
-
- return (
-  <section ref={sectionRef} style={{ height: `${N * 100}vh` }}>
-   <div className="sticky top-0 w-full h-screen bg-snow overflow-hidden flex flex-col">
-    <div className="max-w-7xl mx-auto w-full flex flex-col flex-1 min-h-0 px-10">
-
-    {/* ── Section heading — clear of the fixed navbar ──────────────── */}
-    <div className="flex justify-start pt-24 pb-6 shrink-0">
-     <h2 className="font-aspekta font-bold text-9xl text-forest leading-none">
-      Experience
-     </h2>
-    </div>
-
-    {/* ── Two-column body ─────────────────────────────────────────── */}
-    <div className="flex-1 flex gap-10 pb-10 min-h-0">
-
-     {/* Left col — year + period pinned to bottom */}
-     <div className="w-2/6 shrink-0 flex flex-col">
-      <div className="mt-auto flex flex-col gap-1">
-       <span
-        ref={yearRef}
-        className="font-aspekta font-bold text-forest leading-none select-none"
-        style={{ fontSize: "clamp(5rem, 9vw, 9rem)" }}
-       >
-        {EXPERIENCES[0].year}
-       </span>
-       <span
-        ref={periodRef}
-        className="font-roboto-mono text-[10px] tracking-widest uppercase text-forest/50"
-       >
-        {EXPERIENCES[0].period}
-       </span>
-      </div>
-     </div>
-
-     {/* Right col — cards stacked; GSAP moves the outer wrapper so
-         xPercent/yPercent use the full column dimensions for travel,
-         but the inner card (no h-full) sizes to its content only    */}
-     <div className="flex-1 relative flex items-center">
-      {EXPERIENCES.map((exp, i) => (
-       <div
-        key={i}
-        ref={(el) => { cardRefs.current[i] = el; }}
-        className="absolute inset-0 flex items-center"
-       >
-        {/* Content-sized card — no h-full */}
-        <div className="w-full bg-mist rounded-3xl p-10 flex flex-col gap-6">
-
-         {/* Top row — ghost number + type + period */}
-         <div className="flex items-start justify-between">
-          <span
-           className="font-aspekta font-bold text-forest/10 select-none leading-none"
-           style={{ fontSize: "clamp(3rem, 5vw, 5rem)" }}
-          >
-           {exp.number}
-          </span>
-          <div className="flex items-center gap-3">
-           <span className="font-roboto-mono text-[9px] tracking-widest uppercase text-forest/40">
-            {exp.period}
-           </span>
-           <span className="inline-flex items-center gap-1.5 bg-forest/8 px-3 py-1.5 rounded-lg font-roboto-mono text-[9px] tracking-widest uppercase text-forest/60">
-            {exp.type}
-           </span>
-          </div>
-         </div>
-
-         {/* Bottom — role, company, description, tags */}
-         <div className="flex flex-col gap-3">
-          <h3
-           className="font-aspekta font-bold text-forest leading-tight"
-           style={{ fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)" }}
-          >
-           {exp.role}
-          </h3>
-
-          <p className="font-roboto-mono text-[10px] tracking-widest uppercase text-forest/50">
-           {exp.company}
-          </p>
-
-          <p className="font-dm-sans text-sm text-forest/60 leading-relaxed max-w-2xl">
-           {exp.description}
-          </p>
-
-          <div className="flex flex-wrap gap-2">
-           {exp.tags.map((tag) => (
-            <span
-             key={tag}
-             className="inline-flex items-center gap-1.5 bg-forest/6 border border-forest/10 px-3 py-1 rounded-lg font-roboto-mono text-[9px] tracking-widest uppercase text-forest/60"
+    return (
+        <>
+            <section
+                id="experience"
+                ref={sectionRef}
+                className="w-full bg-forest px-4 sm:px-6 py-16 sm:py-24"
             >
-             {tag}
-            </span>
-           ))}
-          </div>
-         </div>
+                <div className="max-w-5xl mx-auto flex flex-col gap-12 sm:gap-16">
+                    {/* ── Header ───────────────────────────────────────────────────── */}
+                    <div className="flex flex-col gap-4">
+                        <span className="inline-flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-lg font-roboto-mono text-[10px] tracking-widest uppercase text-lime w-fit">
+                            <span className="w-2 h-2 rounded-[3px] bg-lime shrink-0" />
+                            Where I've Worked
+                        </span>
+                        <h2 className="text-snow font-aspekta font-bold leading-tight text-4xl sm:text-5xl lg:text-6xl">
+                            Experience
+                        </h2>
+                    </div>
 
-        </div>
-       </div>
-      ))}
-     </div>
+                    {/* ── Timeline ─────────────────────────────────────────────────── */}
+                    <div className="relative">
+                        {/* Connecting line — left edge on mobile, dead center from md up */}
+                        <div className="absolute top-2 bottom-2 left-4 md:left-1/2 w-px bg-white/15 md:-translate-x-1/2" />
 
-    </div>
-    </div> {/* max-w-7xl */}
-   </div>
-  </section>
- );
+                        <div className="flex flex-col gap-10 sm:gap-12 md:gap-4">
+                            {EXPERIENCES.map((exp, i) => (
+                                <div
+                                    key={exp.number}
+                                    ref={(el) => {
+                                        itemRefs.current[i] = el;
+                                    }}
+                                    className="relative pl-12 md:pl-0 md:grid md:grid-cols-2 md:gap-x-16 md:py-8"
+                                >
+                                    {/* Node dot on the line */}
+                                    <span
+                                        className={`absolute left-4 md:left-1/2 top-1.5 md:top-10 -translate-x-1/2 w-3.5 h-3.5 rounded-full ring-4 ring-forest z-10 ${i === 0 ? "bg-lime" : "bg-white/30"
+                                            }`}
+                                    />
+
+                                    {/* Card — alternates side on desktop, always right of the line on mobile */}
+                                    <div className={i % 2 === 0 ? "md:col-start-1" : "md:col-start-2"}>
+                                        <div className="bg-snow rounded-2xl p-6 sm:p-8 flex flex-col gap-3">
+                                            {/* Ghost number + type + period */}
+                                            <div className="flex items-start justify-between gap-3">
+                                                <span
+                                                    className="font-aspekta font-bold text-forest/10 select-none leading-none"
+                                                    style={{ fontSize: "clamp(2.5rem, 5vw, 3.5rem)" }}
+                                                >
+                                                    {exp.number}
+                                                </span>
+                                                <div className="flex flex-col items-end gap-2 mt-1">
+                                                    <span className="inline-flex items-center gap-1.5 bg-forest/8 px-3 py-1 rounded-lg font-roboto-mono text-[9px] tracking-widest uppercase text-forest/60 whitespace-nowrap">
+                                                        {exp.type}
+                                                    </span>
+                                                    <span className="font-roboto-mono text-[9px] tracking-widest uppercase text-forest/40 whitespace-nowrap">
+                                                        {exp.period}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            {/* Role, company, description, tags */}
+                                            <h3 className="font-aspekta font-bold text-forest leading-tight text-xl sm:text-2xl">
+                                                {exp.role}
+                                            </h3>
+
+                                            <p className="font-roboto-mono text-[10px] tracking-widest uppercase text-forest/50">
+                                                {exp.company}
+                                            </p>
+
+                                            <p className="font-dm-sans text-sm text-forest/60 leading-relaxed">
+                                                {exp.description}
+                                            </p>
+
+                                            <div className="flex flex-wrap gap-2 mt-1">
+                                                {exp.tags.map((tag) => (
+                                                    <span
+                                                        key={tag}
+                                                        className="inline-flex items-center gap-1.5 bg-forest/6 border border-forest/10 px-3 py-1 rounded-lg font-roboto-mono text-[9px] tracking-widest uppercase text-forest/60"
+                                                    >
+                                                        {tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </>
+    );
 };
 
 export default Experience;
