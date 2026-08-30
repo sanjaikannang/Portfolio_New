@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  /* The App entrance animation scales the page up from 1.08x, which visually
+     overflows the viewport width while it settles — clip that, don't scroll it. */
+  overflow-x: hidden;
+}
+
+/* ── Custom Fonts ────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("./assets/fonts/DM-Sans-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("./assets/fonts/RobotoMono-Regular.Dl_9wEMW.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Aspekta";
+  src: url("./assets/fonts/Aspekta-400.DnG7D574.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+@theme {
+  /* Extra breakpoint below the default sm (40rem) — use as: xs:text-3xl */
+  --breakpoint-xs: 26rem;
+
+  /* Fonts — use as: font-dm-sans | font-roboto-mono | font-aspekta */
+  --font-dm-sans:     "DM Sans", sans-serif;
+  --font-roboto-mono: "Roboto Mono", monospace;
+  --font-aspekta:     "Aspekta", sans-serif;
+
+  /* ── Brand Palette ────────────────────────────────────────────────────────
+     forest  → #222e30   dark charcoal-teal   (bg-forest  / text-forest)
+     lime    → #cef79e   bright lime green    (bg-lime    / text-lime)
+     mist    → #e7e8e1   soft warm gray       (bg-mist    / text-mist)
+     snow    → #f7f7f5   near-white           (bg-snow    / text-snow)
+     white   → #ffffff   pure white           (bg-white   / text-white)
+     gray    -> #eeeeee gray
+  ──────────────────────────────────────────────────────────────────────── */
+  --color-forest: #222e30;
+  --color-lime:   #cef79e;
+  --color-mist:   #e7e8e1;
+  --color-snow:   #f7f7f5;
+  --color-white:  #ffffff;
+  --color-gray:   #eeeeee;
+
+  /* Looping glass-shine sweep — use as: animate-shine */
+  --animate-shine: shine 3.2s ease-in-out infinite;
+
+  /* Blinking chip dot — use as: animate-blink */
+  --animate-blink: blink 1.6s ease-in-out infinite;
+}
+
+@keyframes shine {
+  0%   { transform: translateX(-150%) skewX(-20deg); }
+  55%  { transform: translateX(250%) skewX(-20deg); }
+  100% { transform: translateX(250%) skewX(-20deg); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.25; }
+}

@@ -1,1 +1,10 @@
-# Portfolio_New
+# Portfolio New
+
+Personal portfolio site built with Vite, React, TypeScript, and Tailwind CSS.
+
+## Getting started
+
+```bash
+npm install
+npm run dev
+```
