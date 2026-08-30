@@ -55,4 +55,13 @@ html {
   --color-snow:   #f7f7f5;
   --color-white:  #ffffff;
   --color-gray:   #eeeeee;
+
+  /* Looping glass-shine sweep — use as: animate-shine */
+  --animate-shine: shine 3.2s ease-in-out infinite;
+}
+
+@keyframes shine {
+  0%   { transform: translateX(-150%) skewX(-20deg); }
+  55%  { transform: translateX(250%) skewX(-20deg); }
+  100% { transform: translateX(250%) skewX(-20deg); }
 }

@@ -1,3 +1,5 @@
+import { ArrowUpRight } from 'lucide-react';
+
 interface CardProps {
   badge?: string;
   date?: string;
@@ -6,41 +8,8 @@ interface CardProps {
   linkLabel?: string;
   href?: string;
   className?: string;
+  image?: string;
 }
-
-const ArrowIcon = () => (
-  <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4" strokeWidth={2} stroke="currentColor">
-    <path d="M3 8h10M9 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-/*
- * Concave scallop technique for the card's bottom-right lime button:
- *
- *   The lime button has NO border-radius of its own.
- *   overflow-hidden on the card clips the lime button's BOTTOM-RIGHT corner
- *   to match the card's rounded-3xl automatically.
- *
- *   Two SNOW-coloured quarter-circle divs sit in the card area adjacent
- *   to the lime button.  Their curved edges are what "carve" the concave
- *   notch into the card→lime transition:
- *
- *     A  →  above the lime button, on the RIGHT card edge
- *            borderBottomLeftRadius  curves toward the lime button's top-left
- *
- *     B  →  left of the lime button, on the BOTTOM card edge
- *            borderBottomRightRadius curves toward the lime button's bottom-left
- *
- *   ┌──────────────────────────────╮
- *   │  card content            [A] │
- *   │                          ╭───┤   ← concave A (right edge → lime top)
- *   │  READ MORE          [B]╭─┤ → │
- *   │                         ╰───┘   ← concave B (bottom edge → lime left)
- *   └──────────────────────────────┘
- */
-
-const LIME_SIZE = 56; // w-14 h-14 = 56 px
-const CC = 20;        // concave corner radius in px
 
 const Card = ({
   badge,
@@ -50,14 +19,15 @@ const Card = ({
   linkLabel = 'READ MORE',
   href = '#',
   className = '',
+  image,
 }: CardProps) => {
   return (
     <div
-      className={`relative bg-white rounded-3xl p-6 flex flex-col gap-4 overflow-hidden min-h-64 ${className}`}
+      className={`group relative bg-white rounded-3xl p-6 flex flex-col gap-4 overflow-hidden min-h-64 ${className}`}
     >
       {/* Top row — badge + date */}
       {(badge || date) && (
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between pr-2">
           {badge && (
             <span className="inline-flex items-center gap-2 bg-mist px-3 py-1.5 rounded-lg font-roboto-mono text-[10px] tracking-widest uppercase text-forest">
               <span className="w-2 h-2 rounded-[3px] bg-lime shrink-0" />
@@ -65,10 +35,30 @@ const Card = ({
             </span>
           )}
           {date && (
-            <span className="font-roboto-mono text-[10px] tracking-widest uppercase text-forest/50">
+            <span className="font-roboto-mono text-[10px] tracking-widest uppercase text-forest/50 transition-opacity duration-300 group-hover:opacity-0">
               {date}
             </span>
           )}
+        </div>
+      )}
+
+      {/* Hover affordance — top-right corner, same lime/forest arrow language as the site's Button component */}
+      <a
+        href={href}
+        aria-label={`Open ${title}`}
+        className="absolute top-4 right-4 z-20 w-10 h-10 rounded-xl bg-lime text-forest flex items-center justify-center opacity-0 scale-75 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100 hover:bg-lime/80"
+      >
+        <ArrowUpRight size={18} />
+      </a>
+
+      {/* Project screenshot/thumbnail — fixed height so it doesn't blow out on wide (full-row) cards */}
+      {image && (
+        <div className="w-full h-40 sm:h-48 md:h-56 rounded-2xl overflow-hidden bg-mist shrink-0">
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
         </div>
       )}
 
@@ -80,56 +70,15 @@ const Card = ({
         <p className="font-dm-sans text-forest/60 text-sm leading-relaxed">{description}</p>
       )}
 
-      {/* Link label — keep padding-right so it doesn't run under the lime button */}
+      {/* Link label — highlighted as a pill so it reads as a clear action */}
       <div className="mt-auto pr-16">
         <a
           href={href}
-          className="font-roboto-mono text-[10px] tracking-widest uppercase text-forest hover:text-forest/60 transition-colors duration-200"
+          className="inline-flex items-center gap-1.5 bg-gray px-3 py-1.5 rounded-lg font-roboto-mono text-[10px] tracking-widest uppercase text-forest hover:bg-gray/70 transition-colors duration-200"
         >
           {linkLabel}
         </a>
       </div>
-
-      {/* ── Concave A: right-edge → lime-top transition ─────────────────────────
-           Snow square directly above the lime button, flush with the card's
-           right edge.  borderBottomLeftRadius carves its bottom-left corner,
-           revealing lime at the lime button's top-left junction.             */}
-      <div
-        className="absolute bg-snow pointer-events-none z-10"
-        style={{
-          right: 0,
-          bottom: LIME_SIZE,
-          width: CC,
-          height: CC,
-          borderBottomLeftRadius: CC,
-        }}
-      />
-
-      {/* ── Concave B: bottom-edge → lime-left transition ──────────────────────
-           Snow square on the card's bottom edge, directly left of the lime
-           button.  borderBottomRightRadius carves its bottom-right corner,
-           revealing lime at the lime button's bottom-left junction.          */}
-      <div
-        className="absolute bg-snow pointer-events-none z-10"
-        style={{
-          right: LIME_SIZE,
-          bottom: 0,
-          width: CC,
-          height: CC,
-          borderBottomRightRadius: CC,
-        }}
-      />
-
-      {/* ── Lime corner button ─────────────────────────────────────────────────
-           Square corners — outer bottom-right is clipped by card overflow-hidden.
-           The two snow concave divs above handle all visible junctions.      */}
-      <a
-        href={href}
-        className="absolute bottom-0 right-0 w-14 h-14 bg-lime flex items-center justify-center text-forest hover:bg-lime/80 transition-colors duration-200 z-0"
-        aria-label={linkLabel}
-      >
-        <ArrowIcon />
-      </a>
     </div>
   );
 };

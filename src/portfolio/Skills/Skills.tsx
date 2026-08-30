@@ -2,22 +2,16 @@ import { useState } from "react";
 import {
  Code2,
  Server,
- Database,
  Brain,
  Layers,
- Globe,
  Wind,
  Zap,
  Terminal,
  Package,
  Cpu,
  HardDrive,
- Archive,
  Bot,
- Sparkles,
- Network,
  FileCode,
- Box,
 } from "lucide-react";
 
 // ── Decorative front-face SVG icons ─────────────────────────────────────────

@@ -17,11 +17,8 @@ function App() {
                 <Skills />
                 <Education />
                 <Experience />
-                {/* Sticky underlay: Projects holds position while Contact slides over it */}
-                <div className="flex flex-col">
-                    <Projects />
-                    <Contact />
-                </div>
+                <Projects />
+                <Contact />
             </div>
         </>
     );

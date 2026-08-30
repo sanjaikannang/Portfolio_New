@@ -49,12 +49,16 @@ const Navbar = () => {
        </a>
       ))}
 
-      {/* Hire Me button */}
+      {/* Hire Me button — looping glass-shine sweep to draw the eye */}
       <a
        href="#contact"
-       className="px-10 py-2 rounded-lg text-sm font-roboto-mono tracking-wide bg-lime text-forest transition-all duration-200 backdrop-blur-sm"
+       className="relative overflow-hidden isolate px-10 py-2 rounded-lg text-sm font-roboto-mono tracking-wide bg-lime text-forest transition-all duration-200 backdrop-blur-sm"
       >
-       HIRE ME
+       <span className="relative z-10">HIRE ME</span>
+       <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-white/60 blur-sm skew-x-[-20deg] animate-shine"
+       />
       </a>
      </div>
 
@@ -121,9 +125,13 @@ const Navbar = () => {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.15 + NAV_LINKS.length * 0.06 }}
-        className="mt-4 px-10 py-3 rounded-lg text-sm font-roboto-mono tracking-wide bg-lime text-forest"
+        className="relative overflow-hidden isolate mt-4 px-10 py-3 rounded-lg text-sm font-roboto-mono tracking-wide bg-lime text-forest"
        >
-        HIRE ME
+        <span className="relative z-10">HIRE ME</span>
+        <span
+         aria-hidden="true"
+         className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-white/60 blur-sm skew-x-[-20deg] animate-shine"
+        />
        </motion.a>
       </div>
      </motion.div>

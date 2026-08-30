@@ -27,7 +27,15 @@ const HeroSection = () => {
        <span>Software Developer</span>
       </p>
       <h1 className="text-black font-aspekta tracking-wide drop-shadow-lg text-[1.75rem] leading-tight xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-       Building AI Agents<br className="hidden sm:block" /> That Get Things Done.
+       Building{" "}
+       <span className="inline-block bg-lime px-2 sm:px-3 rounded-md">
+        AI Agents
+       </span>
+       <br className="hidden sm:block" /> That Get{" "}
+       <span className="inline-block bg-lime px-2 sm:px-3 rounded-md">
+        Things Done
+       </span>
+       .
       </h1>
       <p className="text-black font-dm-sans text-sm sm:text-base max-w-xs sm:max-w-md md:max-w-lg leading-relaxed">
        I'm Sanjai — I design and build autonomous AI agents, full-stack
